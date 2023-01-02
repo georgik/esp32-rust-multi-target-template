@@ -170,66 +170,27 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
     }
 
     pub fn draw_maze(&mut self, camera_x: i32, camera_y: i32) {
-        #[cfg(feature = "system_timer")]
-        let start_timestamp = SystemTimer::now();
-
-        let assets = self.assets.as_ref().unwrap();
-        let ground = assets.ground.as_ref().unwrap();
-        let wall = assets.wall.as_ref().unwrap();
-        let scorched = assets.scorched.as_ref().unwrap();
-        let empty = assets.empty.as_ref().unwrap();
-
-        let camera_tile_x = camera_x / self.maze.tile_width as i32;
-        let camera_tile_y = camera_y / self.maze.tile_height as i32;
-        for x in camera_tile_x..(camera_tile_x + (self.maze.visible_width as i32)-1) {
-            for y in camera_tile_y..(camera_tile_y + (self.maze.visible_height as i32)-1) {
-                let position_x = (x as i32 * self.maze.tile_width as i32) - camera_x;
-                let position_y = (y as i32 * self.maze.tile_height as i32) - camera_y;
-                let position = Point::new(position_x, position_y);
-
-                if x < 0 || y < 0 || x > (self.maze.width-1) as i32 || y > (self.maze.height-1) as i32 {
-                    let tile = Image::new(empty, position);
-                    tile.draw(&mut self.display);
-                } else {
-                    let tile_index = self.maze.data[(x+y*(self.maze.width as i32)) as usize];
-                    match tile_index {
-                        0 => {
-                            let tile = Image::new(ground, position);
-                            tile.draw(&mut self.display);
-                        },
-                        1 => {
-                            let tile = Image::new(wall, position);
-                            tile.draw(&mut self.display);
-                        },
-                        _ => {
-                            let tile = Image::new(scorched, position);
-                            tile.draw(&mut self.display);
-                        }
-                    }
-                }
-            }
-        }
     }
 
 
     pub fn tick(&mut self) {
-        self.animation_step += 1;
-        if self.animation_step > 1 {
-            self.animation_step = 0;
-        }
+        // self.animation_step += 1;
+        // if self.animation_step > 1 {
+        //     self.animation_step = 0;
+        // }
 
-        // Recharge teleport
-        if self.teleport_counter < 100 {
-            self.teleport_counter += 1;
-        }
+        // // Recharge teleport
+        // if self.teleport_counter < 100 {
+        //     self.teleport_counter += 1;
+        // }
 
-        // Decrement remaining time when Walker is active
-        if self.walker_counter > 0 {
-            self.walker_counter -= 1;
-        }
+        // // Decrement remaining time when Walker is active
+        // if self.walker_counter > 0 {
+        //     self.walker_counter -= 1;
+        // }
 
-        self.maze.move_npcs();
-        self.check_npc_collision();
+        // self.maze.move_npcs();
+        // self.check_npc_collision();
     }
 
     pub fn initialize(&mut self) {
@@ -237,13 +198,7 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
         assets.load();
         self.assets = Some(assets);
 
-        self.maze.generate_maze(32, 32);
-        self.relocate_avatar();
-        self.maze.generate_coins();
-        self.maze.generate_npcs();
-        self.maze.generate_walkers();
-        self.maze.generate_dynamites();
-        self.draw_maze(self.camera_x,self.camera_y);
+        // self.draw_maze(self.camera_x,self.camera_y);
 
     }
 
@@ -254,110 +209,16 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
     }
 
     pub fn draw(&mut self) -> &mut D {
-        self.draw_maze(self.camera_x,self.camera_y);
+        // self.draw_maze(self.camera_x,self.camera_y);
 
 
         match self.assets {
             Some(ref mut assets) => {
 
-                let coin_bmp:Bmp<Rgb565> = assets.coin.unwrap();
-                for index in 0..100 {
-                    let coin = self.maze.coins[index];
-                    if coin.x < 0 || coin.y < 0 {
-                        continue;
-                    }
-
-                    let draw_x = coin.x - self.camera_x;
-                    let draw_y = coin.y - self.camera_y;
-                    if draw_x >= 0 && draw_y >= 0 && draw_x < (self.maze.visible_width*16).try_into().unwrap() && draw_y < (self.maze.visible_height*16).try_into().unwrap() {
-                        let position = Point::new(draw_x, draw_y);
-                        let tile = Image::new(&coin_bmp, position);
-                        tile.draw(&mut self.display);
-                    }
-                }
-
-                let npc_bmp:Bmp<Rgb565> = assets.npc.unwrap();
-                for index in 0..5 {
-                    let item = self.maze.npcs[index];
-                    if item.x < 0 || item.y < 0 {
-                        continue;
-                    }
-
-                    let draw_x = item.x - self.camera_x;
-                    let draw_y = item.y - self.camera_y;
-                    if draw_x >= 0 && draw_y >= 0 && draw_x < (self.maze.visible_width*16).try_into().unwrap() && draw_y < (self.maze.visible_height*16).try_into().unwrap() {
-                        let position = Point::new(draw_x, draw_y);
-                        let tile = Image::new(&npc_bmp, position);
-                        tile.draw(&mut self.display);
-                    }
-                }
-
-                let walker_bmp:Bmp<Rgb565> = assets.walker.unwrap();
-                for index in 0..5 {
-                    let item = self.maze.walkers[index];
-                    if item.x < 0 || item.y < 0 {
-                        continue;
-                    }
-
-                    let draw_x = item.x - self.camera_x;
-                    let draw_y = item.y - self.camera_y;
-                    if draw_x >= 0 && draw_y >= 0 && draw_x < (self.maze.visible_width*16).try_into().unwrap() && draw_y < (self.maze.visible_height*16).try_into().unwrap() {
-                        let position = Point::new(draw_x, draw_y);
-                        let tile = Image::new(&walker_bmp, position);
-                        tile.draw(&mut self.display);
-                    }
-                }
-
-                let dynamite_bmp:Bmp<Rgb565> = assets.dynamite.unwrap();
-                for index in 0..1 {
-                    let item = self.maze.dynamites[index];
-                    if item.x < 0 || item.y < 0 {
-                        continue;
-                    }
-
-                    let draw_x = item.x - self.camera_x;
-                    let draw_y = item.y - self.camera_y;
-                    if draw_x >= 0 && draw_y >= 0 && draw_x < (self.maze.visible_width*16).try_into().unwrap() && draw_y < (self.maze.visible_height*16).try_into().unwrap() {
-                        let position = Point::new(draw_x, draw_y);
-                        let tile = Image::new(&dynamite_bmp, position);
-                        tile.draw(&mut self.display);
-                    }
-                }
-
-                match self.animation_step {
-                    0 => {
-                        let bmp:Bmp<Rgb565> = assets.ghost1.unwrap();
-                        let ghost1 = Image::new(&bmp, Point::new(self.ghost_x.try_into().unwrap(), self.ghost_y.try_into().unwrap()));
-                        ghost1.draw(&mut self.display);
-                    },
-                    _ => {
-                        let bmp:Bmp<Rgb565> = assets.ghost2.unwrap();
-                        let ghost2 = Image::new(&bmp, Point::new(self.ghost_x.try_into().unwrap(), self.ghost_y.try_into().unwrap()));
-                        ghost2.draw(&mut self.display);
-                    },
-
-                }
-
-                // Status bar - coins, teleport, walk time, dynamite
-                let position = Point::new(5, 6);
-                let tile = Image::new(&coin_bmp, position);
+                let logo_bmp:Bmp<Rgb565> = assets.logo.unwrap();
+                let position = Point::new(10, 10);
+                let tile = Image::new(&logo_bmp, position);
                 tile.draw(&mut self.display);
-
-                let teleport_bmp:Bmp<Rgb565> = assets.teleport.unwrap();
-                let position = Point::new(5, 28);
-                let tile = Image::new(&teleport_bmp, position);
-                tile.draw(&mut self.display);
-
-                let walker_bmp:Bmp<Rgb565> = assets.walker.unwrap();
-                let position = Point::new(5, 50);
-                let tile = Image::new(&walker_bmp, position);
-                tile.draw(&mut self.display);
-
-                let dynamite_bmp:Bmp<Rgb565> = assets.dynamite.unwrap();
-                let position = Point::new(5, 72);
-                let tile = Image::new(&dynamite_bmp, position);
-                tile.draw(&mut self.display);
-
 
                 // display.flush().unwrap();
             },
@@ -365,11 +226,6 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
                 panic!("Assets not loaded");
             }
         };
-
-        self.draw_status_number(self.maze.coin_counter, 24, 17);
-        self.draw_status_number(self.teleport_counter, 24, 39);
-        self.draw_status_number(self.walker_counter, 24, 61);
-        self.draw_status_number(self.dynamite_counter, 24, 83);
 
         &mut self.display
     }
