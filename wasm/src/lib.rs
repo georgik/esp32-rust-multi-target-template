@@ -11,7 +11,7 @@ use embedded_graphics_web_simulator::{
 use wasm_bindgen::prelude::*;
 use web_sys::{console};
 
-use spooky_core::{ engine::Engine };
+use {{crate_name}}_engine::{ engine::Engine };
 
 #[wasm_bindgen]
 pub struct Universe {

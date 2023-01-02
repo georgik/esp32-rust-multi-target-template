@@ -48,7 +48,7 @@ use xtensa_lx_rt::entry;
 
 use embedded_graphics::pixelcolor::Rgb565;
 
-use spooky_core::{engine::Engine, spritebuf::SpriteBuf};
+use {{crate_name}}_engine::{engine::Engine, spritebuf::SpriteBuf};
 
 #[cfg(any(feature = "imu_controls"))]
 use shared_bus::BusManagerSimple;

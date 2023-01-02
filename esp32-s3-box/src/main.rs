@@ -60,7 +60,7 @@ use embedded_graphics::pixelcolor::Rgb565;
 ))]
 use ili9341::{DisplaySize240x320, Ili9341, Orientation};
 
-use spooky_core::{engine::Engine, spritebuf::SpriteBuf};
+use {{crate_name}}_engine::{engine::Engine, spritebuf::SpriteBuf};
 
 #[cfg(any(feature = "imu_controls"))]
 use icm42670::{accelerometer::Accelerometer, Address, Icm42670};

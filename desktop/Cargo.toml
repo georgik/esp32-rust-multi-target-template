@@ -13,5 +13,5 @@ getrandom = { version = "0.2.8", features = ["js"] }
 rand_chacha = { version = "0.3.1", default-features = false }
 tinybmp = "0.4.0"
 heapless = { version = "0.7.14", default-features = false }
-spooky-core = { path = "../spooky-core" }
+{{crate_name}}-engine = { path = "../engine" }
 embedded-graphics-simulator = "0.4.0"

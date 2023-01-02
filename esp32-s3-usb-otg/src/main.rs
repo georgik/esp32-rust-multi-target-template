@@ -59,7 +59,7 @@ use embedded_graphics::{pixelcolor::Rgb565};
 #[cfg(any(feature = "esp32s2_ili9341", feature = "esp32_wrover_kit", feature = "esp32c3_ili9341"))]
 use ili9341::{DisplaySize240x320, Ili9341, Orientation};
 
-use spooky_core::{spritebuf::SpriteBuf, engine::Engine};
+use {{crate_name}}_engine::{spritebuf::SpriteBuf, engine::Engine};
 
 use embedded_hal::digital::v2::OutputPin;
 use embedded_graphics_framebuf::{FrameBuf};

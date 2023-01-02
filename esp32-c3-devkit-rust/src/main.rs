@@ -55,7 +55,7 @@ use xtensa_lx_rt::entry;
 use embedded_graphics::pixelcolor::Rgb565;
 // use esp32s2_hal::Rng;
 
-use spooky_core::{engine::Engine, spritebuf::SpriteBuf};
+use {{crate_name}}_engine::{engine::Engine, spritebuf::SpriteBuf};
 
 #[cfg(any(feature = "imu_controls"))]
 use icm42670::{accelerometer::Accelerometer, Address, Icm42670};

@@ -13,7 +13,7 @@ use embedded_graphics_framebuf::{FrameBuf};
 
 use std::time::Duration;
 
-use spooky_core::{ spritebuf::SpriteBuf, engine::Engine };
+use {{crate_name}}_engine::{ spritebuf::SpriteBuf, engine::Engine };
 
 pub struct Universe<D> {
     engine: Engine<D>,

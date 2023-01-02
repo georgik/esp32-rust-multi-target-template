@@ -30,7 +30,9 @@ petgraph = { git = "https://github.com/zendurix/petgraph.git", branch = "better_
     "graphmap",
 ] }
 shared-bus = { version = "0.2.4" }
-spooky-core = { path = "../spooky-core", default-features = false, features = [ "static_maze"]}
+{{crate_name}}-engine = { path = "../engine", default-features = false, features = [
+    "static_maze",
+] }
 heapless = { version = "0.7.14", default-features = false }
 embedded-graphics-framebuf = "0.2.0"
 
