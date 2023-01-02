@@ -1,0 +1,18 @@
+[workspace]
+
+# Set explicit resolver to "2" to avoid problems with std/no_std projects.
+resolver = "2"
+
+members = [
+    "desktop",
+    "esp-wrover-kit",
+    "esp32-c3-devkit-rust",
+    "esp32-s2-kaluga",
+    "esp32-s2-usb-otg",
+    "esp32-s3-usb-otg",
+    "esp32-s3-box",
+    "m5core-fire",
+    "engine",
+    "wasm"
+]
+

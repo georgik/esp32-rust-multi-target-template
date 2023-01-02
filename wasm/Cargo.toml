@@ -1,0 +1,20 @@
+[package]
+name = "{{crate_name}}-wasm"
+version = "0.1.0"
+authors = ["Juraj Michalek <juraj.michalek@espressif.com>", "Samuel Benko <samuel.benko@espressif.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+embedded-graphics = "0.7"
+wasm-bindgen = "0.2.83"
+web-sys = { version = "0.3.60", features = ['Window', 'Performance', 'PerformanceTiming']}
+embedded-graphics-framebuf = "0.2.0"
+embedded-graphics-web-simulator = { git = "https://github.com/georgik/embedded-graphics-web-simulator.git", branch = "feature/sprite" }
+getrandom = { version = "0.2.8", features = ["js"] }
+rand_chacha = { version = "0.3.1", default-features = false }
+{{crate_name}}-core = { path = "../{{crate_name}}-core", default-features = false, features = [ "wasm", "static_maze" ]}
+

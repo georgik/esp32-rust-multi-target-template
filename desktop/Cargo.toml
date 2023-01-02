@@ -1,0 +1,17 @@
+[package]
+name = "{{crate_name}}-desktop"
+version = "0.1.0"
+authors = ["Juraj Michalek <juraj.michalek@espressif.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+
+[dependencies]
+embedded-graphics = "0.7"
+embedded-graphics-framebuf = "0.2.0"
+getrandom = { version = "0.2.8", features = ["js"] }
+rand_chacha = { version = "0.3.1", default-features = false }
+tinybmp = "0.4.0"
+heapless = { version = "0.7.14", default-features = false }
+spooky-core = { path = "../spooky-core" }
+embedded-graphics-simulator = "0.4.0"
