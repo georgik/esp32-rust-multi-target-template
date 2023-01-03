@@ -12,7 +12,7 @@ use embedded_graphics::{
     image::Image,
 };
 
-use crate::{assets::Assets, maze::Maze};
+use crate::{assets::Assets};
 use heapless::String;
 use tinybmp::Bmp;
 
@@ -24,7 +24,6 @@ pub struct Engine<D> {
     assets: Option<Assets<'static>>,
     step_size_x: u32,
     step_size_y: u32,
-    maze: Maze,
     camera_x: i32,
     camera_y: i32,
     animation_step: u32,
@@ -44,7 +43,6 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
             assets: None,
             step_size_x: 16,
             step_size_y: 16,
-            maze: Maze::new(64, 64, seed),
             camera_x: 0,
             camera_y: 0,
             // #[cfg(any(feature = "imu_controls"))]
@@ -59,66 +57,26 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
         let x = self.camera_x + self.ghost_x;
         let y = self.camera_y + self.ghost_y;
 
-        // Coin collisions
-        match self.maze.get_coin_at(x, y) {
-            Some(coin) => {
-                self.maze.remove_coin(coin);
-            },
-            None => {}
-        }
-
-        // Walker collisions
-        match self.maze.get_walker_at(x, y) {
-            Some(walker) => {
-                self.maze.relocate_walker(walker);
-                if self.walker_counter < 10000 {
-                    self.walker_counter += 100;
-                }
-            },
-            None => {}
-        }
-
-        // Dynamite collisions
-        match self.maze.get_dynamite_at(x, y) {
-            Some(dynamite) => {
-                self.maze.relocate_dynamite(dynamite);
-                if self.dynamite_counter < 10000 {
-                    self.dynamite_counter += 1;
-                }
-            },
-            None => {}
-        }
     }
 
     fn relocate_avatar(&mut self) {
-        let (new_camera_x, new_camera_y) = self.maze.get_random_coordinates();
-        (self.camera_x, self.camera_y) = (new_camera_x - self.ghost_x, new_camera_y - self.ghost_y);
+        // let (new_camera_x, new_camera_y) = self.maze.get_random_coordinates();
+        // (self.camera_x, self.camera_y) = (new_camera_x - self.ghost_x, new_camera_y - self.ghost_y);
     }
 
     fn relocate_coins(&mut self, amount: u32) {
-        self.maze.relocate_coins(amount);
+        // self.maze.relocate_coins(amount);
     }
 
     fn check_npc_collision(&mut self) {
         let x = self.camera_x + self.ghost_x;
         let y = self.camera_y + self.ghost_y;
 
-        match self.maze.get_npc_at(x, y) {
-            Some(_npc) => {
-                self.relocate_coins(5);
-                self.relocate_avatar();
-            },
-            None => {}
-        }
     }
 
     fn is_walkable(&self, x: i32, y: i32) -> bool {
         // Walk through walls
-        if self.walker_counter > 0 {
-            !self.maze.check_boundary_collision(x, y)
-        } else {
-            !self.maze.check_wall_collision(x, y)
-        }
+        true
     }
 
     pub fn move_right(&mut self) {
@@ -161,12 +119,6 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
     }
 
     pub fn place_dynamite(&mut self) {
-        if self.dynamite_counter == 0 {
-            return;
-        }
-
-        self.maze.place_dynamite(self.camera_x + self.ghost_x, self.camera_y + self.ghost_y);
-        self.dynamite_counter -= 1;
     }
 
     pub fn draw_maze(&mut self, camera_x: i32, camera_y: i32) {

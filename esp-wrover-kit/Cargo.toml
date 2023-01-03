@@ -1,7 +1,7 @@
 [package]
 name = "{{crate_name}}-wrover-kit"
 version = "0.1.0"
-authors = ["Juraj Michálek <juraj.michalek@gmail.com>"]
+authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT"
 
@@ -26,9 +26,7 @@ panic-halt = "0.2"
 rand = { version = "0.8.5", default-features = false }
 rand_chacha = { version = "0.3.1", default-features = false }
 shared-bus = { version = "0.2.4" }
-{{crate_name}}-engine = { path = "../engine", default-features = false, features = [
-    "static_maze",
-] }
+{{crate_name}}-engine = { path = "../engine", default-features = false, features = [] }
 heapless = { version = "0.7.14", default-features = false }
 embedded-graphics-framebuf = "0.2.0"
 

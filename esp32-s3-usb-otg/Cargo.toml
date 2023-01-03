@@ -1,13 +1,12 @@
 [package]
 name = "{{crate_name}}-s3-otg"
 version = "0.1.0"
-authors = ["Juraj Michálek <juraj.michalek@gmail.com>"]
+authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT"
 
 [target.xtensa-esp32s3-none-elf.dependencies]
 xtensa-atomic-emulation-trap = "0.3.0"
-# esp32s3-hal = { package = "esp32s3-hal", git = "https://github.com/esp-rs/esp-hal.git" }
 esp32s3-hal = "0.4.0"
 esp-backtrace = { version = "0.4.0" , features = [
     "esp32s3",
@@ -28,7 +27,6 @@ mipidsi = "0.5.0"
 panic-halt = "0.2"
 rand = { version = "0.8.5", default-features = false }
 rand_chacha = { version = "0.3.1", default-features = false }
-petgraph = { git = "https://github.com/zendurix/petgraph.git", branch = "better_no_std", default-features = false, features = ["graphmap"] }
 shared-bus = { version = "0.2.4" }
 {{crate_name}}-engine = { path = "../engine" }
 heapless = { version = "0.7.14", default-features = false }

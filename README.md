@@ -1,9 +1,15 @@
 # {{crate_name}}
 
-Spooky Maze is simple game where ghost is located in the maze. The goal is to collect 100 coins.
-The ghost can find artifact "Walker" which allows him to pass throght the wall for limited period of time.
-The ghost can use dynamite to clear wall in the vicinity. The ghost can use also Teleport spell to move to random place in the maze.
-The Teleport spell requires some time to recharge. There are some not friendly spirits running around the maze, when collision occurs the ghost is teleported and loses five coins which are then send randomly back to the maze.
+Template project for creating interactive apps with Rust Bare Metal (no_std) on ESP32.
+The template contains also WASM and Desktop version which could help with faster implementation of concepts.
+Each target HW is in separate directory. Shared code is stored in `engine`.
+
+## Generate new project
+
+```
+cargo generate https://github.com/georgik/esp32-rust-multi-target-template.git
+cd project-name
+```
 
 ## Build and flash
 

@@ -1,7 +1,7 @@
 [package]
 name = "{{crate_name}}-s3-box"
 version = "0.1.0"
-authors = ["Juraj Michálek <juraj.michalek@gmail.com>"]
+authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT"
 
@@ -27,9 +27,6 @@ mipidsi = "0.5.0"
 panic-halt = "0.2"
 rand = { version = "0.8.5", default-features = false }
 rand_chacha = { version = "0.3.1", default-features = false }
-petgraph = { git = "https://github.com/zendurix/petgraph.git", branch = "better_no_std", default-features = false, features = [
-    "graphmap",
-] }
 shared-bus = { version = "0.2.4" }
 {{crate_name}}-engine = { path = "../engine" }
 heapless = { version = "0.7.14", default-features = false }
