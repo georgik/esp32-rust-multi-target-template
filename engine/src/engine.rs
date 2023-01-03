@@ -18,18 +18,13 @@ use tinybmp::Bmp;
 
 pub struct Engine<D> {
     pub start_time: u64,
-    pub ghost_x: i32,
-    pub ghost_y: i32,
+    pub avatar_x: i32,
+    pub avatar_y: i32,
     display: D,
     assets: Option<Assets<'static>>,
     step_size_x: u32,
     step_size_y: u32,
-    camera_x: i32,
-    camera_y: i32,
     animation_step: u32,
-    teleport_counter: u32,
-    walker_counter: u32,
-    dynamite_counter: u32,
 }
 
 
@@ -37,91 +32,59 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
     pub fn new(display:D, seed: Option<[u8; 32]>) -> Engine<D> {
         Engine {
             start_time: 0,
-            ghost_x: 9*16,
-            ghost_y: 7*16,
+            avatar_x: 9*16,
+            avatar_y: 7*16,
             display,
             assets: None,
             step_size_x: 16,
             step_size_y: 16,
-            camera_x: 0,
-            camera_y: 0,
             // #[cfg(any(feature = "imu_controls"))]
             animation_step: 0,
-            teleport_counter: 100,
-            walker_counter: 0,
-            dynamite_counter: 1,
         }
     }
 
     fn check_object_collisions(&mut self) {
-        let x = self.camera_x + self.ghost_x;
-        let y = self.camera_y + self.ghost_y;
-
-    }
-
-    fn relocate_avatar(&mut self) {
-        // let (new_camera_x, new_camera_y) = self.maze.get_random_coordinates();
-        // (self.camera_x, self.camera_y) = (new_camera_x - self.ghost_x, new_camera_y - self.ghost_y);
-    }
-
-    fn relocate_coins(&mut self, amount: u32) {
-        // self.maze.relocate_coins(amount);
-    }
-
-    fn check_npc_collision(&mut self) {
-        let x = self.camera_x + self.ghost_x;
-        let y = self.camera_y + self.ghost_y;
-
     }
 
     fn is_walkable(&self, x: i32, y: i32) -> bool {
-        // Walk through walls
-        true
+        // Boundaries of the scene
+        !( (x < 0) || (y < 0)  || (x > 280) || (y > 200) )
     }
 
     pub fn move_right(&mut self) {
-        let new_camera_x = self.camera_x + self.step_size_x as i32;
-        if self.is_walkable(new_camera_x + self.ghost_x, self.camera_y + self.ghost_y) {
-            self.camera_x = new_camera_x;
+        let new_avatar_x = self.avatar_x + self.step_size_x as i32;
+        if self.is_walkable(new_avatar_x, self.avatar_y) {
+            self.avatar_x = new_avatar_x;
             self.check_object_collisions();
         }
     }
 
     pub fn move_left(&mut self) {
-        let new_camera_x = self.camera_x - self.step_size_x as i32;
-        if self.is_walkable(new_camera_x + self.ghost_x, self.camera_y + self.ghost_y) {
-            self.camera_x = new_camera_x;
+        let new_avatar_x = self.avatar_x - self.step_size_x as i32;
+        if self.is_walkable(new_avatar_x, self.avatar_y) {
+            self.avatar_x = new_avatar_x;
             self.check_object_collisions();
         }
     }
 
     pub fn move_up(&mut self) {
-        let new_camera_y = self.camera_y - self.step_size_y as i32;
-        if self.is_walkable(self.camera_x + self.ghost_x, new_camera_y + self.ghost_y) {
-            self.camera_y = new_camera_y;
+        let new_avatar_y = self.avatar_y - self.step_size_y as i32;
+        if self.is_walkable(self.avatar_x, new_avatar_y) {
+            self.avatar_y = new_avatar_y;
             self.check_object_collisions();
         }
     }
 
     pub fn move_down(&mut self) {
-        let new_camera_y = self.camera_y + self.step_size_y as i32;
-        if self.is_walkable(self.camera_x + self.ghost_x, new_camera_y + self.ghost_y) {
-            self.camera_y = new_camera_y;
+        let new_avatar_y = self.avatar_y + self.step_size_y as i32;
+        if self.is_walkable(self.avatar_x, new_avatar_y) {
+            self.avatar_y = new_avatar_y;
             self.check_object_collisions();
         }
     }
 
-    pub fn teleport(&mut self) {
-        if self.teleport_counter == 100 {
-            self.relocate_avatar();
-            self.teleport_counter = 0;
-        }
-    }
-
-    pub fn place_dynamite(&mut self) {
-    }
-
-    pub fn draw_maze(&mut self, camera_x: i32, camera_y: i32) {
+    pub fn draw_background(&mut self, _camera_x: i32, _camera_y: i32) {
+        self.display.clear(RgbColor::BLACK);
     }
 
 
@@ -129,16 +92,6 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
         // self.animation_step += 1;
         // if self.animation_step > 1 {
         //     self.animation_step = 0;
-        // }
-
-        // // Recharge teleport
-        // if self.teleport_counter < 100 {
-        //     self.teleport_counter += 1;
-        // }
-
-        // // Decrement remaining time when Walker is active
-        // if self.walker_counter > 0 {
-        //     self.walker_counter -= 1;
         // }
 
         // self.maze.move_npcs();
@@ -150,7 +103,7 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
         assets.load();
         self.assets = Some(assets);
 
-        // self.draw_maze(self.camera_x,self.camera_y);
+        self.draw_background(0, 0);
 
     }
 
@@ -161,14 +114,13 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Engine <D> {
     }
 
     pub fn draw(&mut self) -> &mut D {
-        // self.draw_maze(self.camera_x,self.camera_y);
-
+        self.draw_background(0, 0);
 
         match self.assets {
             Some(ref mut assets) => {
 
                 let logo_bmp:Bmp<Rgb565> = assets.logo.unwrap();
-                let position = Point::new(10, 10);
+                let position = Point::new(self.avatar_x, self.avatar_y);
                 let tile = Image::new(&logo_bmp, position);
                 tile.draw(&mut self.display);
 
