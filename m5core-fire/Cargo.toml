@@ -1,5 +1,5 @@
 [package]
-name = "{{crate_name}}_m5"
+name = "{{crate_name}}-m5"
 version = "0.1.0"
 authors = ["{{ authors }}"]
 edition = "2021"

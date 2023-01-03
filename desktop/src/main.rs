@@ -73,7 +73,7 @@ impl <D:embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Universe <D>
 
 fn main() -> Result<(), core::convert::Infallible> {
     let output_settings = OutputSettingsBuilder::new().scale(2).build();
-    let mut window = Window::new("ESP32 Spooky Maze", &output_settings);
+    let mut window = Window::new("{{project-name}}", &output_settings);
 
     let mut data = [Rgb565::BLACK ; 320*240];
     let fbuf = FrameBuf::new(&mut data, 320, 240);

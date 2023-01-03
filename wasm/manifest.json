@@ -1,6 +1,6 @@
 {
-    "name":"ESP32 Spooky Maze game",
-    "short_name":"Spooky Maze",
+    "name":"{{project-name}}",
+    "short_name":"{{crate_name}}",
     "start_url":"https://georgik.rocks/wp-content/html5/spooky/",
     "display":"standalone",
     "background_color":"#5900b3",

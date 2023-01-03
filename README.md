@@ -27,12 +27,10 @@ Note: https is required for access to accelerometer data - https://w3c.github.io
 
 ### Build for ESP32-S3-BOX with ILI9486
 
-![Spooky on ESP32-S3-BOX](assets/screenshot/esp32-spooky-s3-box.jpg)
-
 Control: IMU
 - tilt the board to move the character
-- move quickly up to teleport
-- move quickly down to place dynamite and destroy walls around
+- move quickly up to perform the first action
+- move quickly down to perform second action
 
 ```
 cd esp32-s3-box
@@ -81,12 +79,10 @@ cargo run
 
 ### Build for ESP32-S3-USB-OTG with ST7789
 
-![Spooky on ESP32-S3-USB-OTG](assets/screenshot/esp32-spooky-s3-usb-otg.jpg)
-
 Control: buttons
 - press button to move the character
-- press up & down to teleport
-- press ok & menu to place dynamite
+- press up & down to perform the first action
+- press ok & menu to perform the second action
 
 ```
 cd esp32-s3-usb-otg
@@ -97,8 +93,8 @@ cargo espflash --release --monitor
 
 Control: buttons
 - press button to move the character
-- press up & down to teleport
-- press ok & menu to place dynamite
+- press up & down to perform the first action
+- press ok & menu to perform the second action
 
 ```
 cd esp32-s2-usb-otg
