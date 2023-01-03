@@ -1,4 +1,4 @@
-# {{crate_name}}
+# ESP32 Rust Multi Target Template
 
 Template project for creating interactive apps with Rust Bare Metal (no_std) on ESP32.
 The template contains also WASM and Desktop version which could help with faster implementation of concepts.
