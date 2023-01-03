@@ -92,8 +92,8 @@ fn main() -> Result<(), core::convert::Infallible> {
                         Keycode::Right | Keycode::D => universe.move_right(),
                         Keycode::Up | Keycode::W => universe.move_up(),
                         Keycode::Down | Keycode::S => universe.move_down(),
-                        // Keycode::Return => universe.teleport(),
-                        // Keycode::Space => universe.place_dynamite(),
+                        // Keycode::Return => ...,
+                        // Keycode::Space => ....,
                         _ => {},
                     };
                 }

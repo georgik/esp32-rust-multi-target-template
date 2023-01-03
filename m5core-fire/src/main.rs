@@ -85,14 +85,6 @@ impl<D: embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Universe<D> 
         self.engine.move_right();
     }
 
-    pub fn teleport(&mut self) {
-        self.engine.teleport();
-    }
-
-    pub fn place_dynamite(&mut self) {
-        self.engine.place_dynamite();
-    }
-
     pub fn render_frame(&mut self) -> &D {
         self.engine.tick();
         self.engine.draw()
@@ -220,11 +212,9 @@ fn main() -> ! {
         #[cfg(feature = "m5stack_core2")]
         {
             if button_c.is_low().unwrap() {
-                universe.teleport();
             }
 
             if button_b.is_low().unwrap() {
-                universe.place_dynamite();
             }
 
         }
@@ -232,11 +222,9 @@ fn main() -> ! {
         #[cfg(feature = "wokwi")]
         {
             if button_c.is_high().unwrap() {
-                universe.teleport();
             }
 
             if button_b.is_high().unwrap() {
-                universe.place_dynamite();
             }
 
         }
@@ -262,13 +250,9 @@ fn main() -> ! {
                 universe.move_up();
             }
 
-            // Quickly move up to teleport
-            // Quickly move down to place dynamite
-            if measurement.accel[2] < -10.2 {
-                universe.teleport();
-            } else if measurement.accel[2] > 20.5 {
-                universe.place_dynamite();
-            }
+            // if measurement.accel[2] < -10.2 {
+            // } else if measurement.accel[2] > 20.5 {
+            // }
         }
 
         #[cfg(feature = "mpu6050")]
@@ -293,13 +277,9 @@ fn main() -> ! {
                 universe.move_up();
             }
 
-            // Quickly move up to teleport
-            // Quickly move down to place dynamite
-            if measurement.z < -10.2 {
-                universe.teleport();
-            } else if measurement.z > 20.5 {
-                universe.place_dynamite();
-            }
+            // if measurement.z < -10.2 {
+            // } else if measurement.z > 20.5 {
+            // }
         }
         display
             .draw_iter(universe.render_frame().into_iter())

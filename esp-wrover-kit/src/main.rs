@@ -77,14 +77,6 @@ impl<D: embedded_graphics::draw_target::DrawTarget<Color = Rgb565>> Universe<D> 
         self.engine.move_right();
     }
 
-    pub fn teleport(&mut self) {
-        self.engine.teleport();
-    }
-
-    pub fn place_dynamite(&mut self) {
-        self.engine.place_dynamite();
-    }
-
     pub fn render_frame(&mut self) -> &D {
         self.engine.tick();
         self.engine.draw()
@@ -166,9 +158,8 @@ fn main() -> ! {
     universe.initialize();
 
     loop {
-        if button_boot.is_low().unwrap() {
-            universe.teleport();
-        }
+        // if button_boot.is_low().unwrap() {
+        // }
 
         display
             .draw_iter(universe.render_frame().into_iter())

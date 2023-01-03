@@ -30,13 +30,6 @@ const rust = import('./pkg')
     document.getElementById('button-right').addEventListener('click', () => {
         universe.move_right();
     });
-    document.getElementById('button-teleport').addEventListener('click', () => {
-        universe.teleport();
-    });
-    document.getElementById('button-dynamite').addEventListener('click', () => {
-        universe.place_dynamite();
-    });
-
 
     window.addEventListener("devicemotion", (event) => {
 

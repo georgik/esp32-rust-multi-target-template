@@ -242,11 +242,7 @@ fn main() -> ! {
         let button_ok = button_ok_pin.is_low().unwrap();
         let button_menu = button_menu_pin.is_low().unwrap();
 
-        if button_up && button_down {
-            universe.engine.teleport();
-        } else if button_menu && button_ok {
-            universe.engine.place_dynamite();
-        } else if button_down {
+        if button_down {
             universe.engine.move_down();
         } else if button_up {
             universe.move_up();

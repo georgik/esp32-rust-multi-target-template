@@ -58,7 +58,7 @@ cargo espflash --release --monitor
 
 Control: keyboard
 - press arrows or W,A,S,D to move the character
-- press Enter to teleport
+- press Enter to perform action
 
 - macOS prerequisites:
 ```
@@ -107,8 +107,8 @@ HW: https://docs.makerfactory.io/m5stack/core/fire/
 
 Control: MPU-9250, buttons
 - tilt the board to move the character
-- move quickly up or press button C to teleport
-- move quickly down or press button B to place dynamite and destroy walls around
+- move quickly up or press button C to perform the first action
+- move quickly down or press button B to perform the second action
 
 ```
 cd m5core-fire
@@ -154,8 +154,8 @@ HW: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp
 Control: buttons (partialy implemented based on of https://github.com/espressif/esp-bsp/blob/master/esp32_s2_kaluga_kit/esp32_s2_kaluga_kit.c#L59)
 - more details https://github.com/espressif/esp-bsp/blob/master/esp32_s2_kaluga_kit/include/bsp/esp32_s2_kaluga_kit.h#L299
 - K3-K6 to move the character
-- (not supported) press K5 button to teleport
-- (not supported) press K6 button to place dynamite
+- (not supported) press K5 button to perform the first action
+- (not supported) press K6 button to perform the second action
 
 ```
 cd esp32-s2-kaluga
@@ -170,7 +170,7 @@ HW: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp
 
 Control: limited, only one button available
 - it's not possible to move the character
-- press button Boot to teleport
+- press button Boot to to perform the first action
 
 ```
 cd esp-wrover-kit
