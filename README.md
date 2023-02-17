@@ -147,6 +147,17 @@ cargo build --release --no-default-features --features "wokwi"
 
 Press F1, select Wokwi: Start simulation
 
+### Build for M5STACK-CORE2 with ESP32 and ILI9341
+
+HW: https://shop.m5stack.com/products/m5stack-core2-esp32-iot-development-kit
+
+Control: Not implemented
+
+```
+cd m5stack-core2
+cargo espflash --release --monitor
+```
+
 ### Build for ESP32-S2-Kaluga v1.3
 
 HW: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-wrover-kit.html
