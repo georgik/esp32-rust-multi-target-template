@@ -6,6 +6,7 @@ resolver = "2"
 members = [
     "desktop",
     "esp-wrover-kit",
+    "esp32-c6-devkit",
     # Temporarily disabled, because of problem in riscv dependency
     #"esp32-c3-devkit-rust",
     "esp32-s2-kaluga",
