@@ -72,10 +72,7 @@ use embedded_hal::digital::v2::OutputPin;
 
 pub struct Universe<I, D> {
     pub engine: Engine<D>,
-    // #[cfg(any(feature = "imu_controls"))]
     icm: I,
-    // icm: Option<Icm42670<shared_bus::I2cProxy<shared_bus::NullMutex<i2c::I2C<I2C0>>>>>
-    // delay: Some(Delay),
 }
 
 impl<I: Accelerometer, D: embedded_graphics::draw_target::DrawTarget<Color = Rgb565>>
@@ -283,7 +280,7 @@ fn main() -> ! {
     let mut display = mipidsi::Builder::ili9342c_rgb565(di)
         .with_display_size(320, 240)
         .with_orientation(mipidsi::Orientation::PortraitInverted(false))
-        .with_color_order(mipidsi::ColorOrder::Rgb)
+        .with_color_order(mipidsi::ColorOrder::Bgr)
         .init(&mut delay, Some(reset))
         .unwrap();
     // let mut display = mipidsi::Display::ili9342c_rgb565(di, core::prelude::v1::Some(reset), display_options);

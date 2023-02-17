@@ -101,7 +101,7 @@ cd esp32-s2-usb-otg
 cargo espflash --release --monitor
 ```
 
-### Build for M5CORE-FIRE with ESP32 and ILI9341
+### Build for M5STACK-FIRE with ESP32 and ILI9341
 
 HW: https://docs.makerfactory.io/m5stack/core/fire/
 
@@ -111,37 +111,37 @@ Control: MPU-9250, buttons
 - move quickly down or press button B to perform the second action
 
 ```
-cd m5core-fire
+cd m5stack-fire
 cargo espflash --release --monitor
 ```
 
-#### Build M5CORE-FIRE using GitPod.io and run with Wokwi
+#### Build M5STACK-FIRE using GitPod.io and run with Wokwi
 
 - Open in [GitPod.io](https://gitpod.io/github.com/georgik/esp32-spooky-maze-game)
 
 ```
-cd m5core-fire
+cd m5stack-fire
 ./run-wokwi.sh
 ```
 
 - Wokwi project: https://wokwi.com/projects/350825213595746900
 
-#### Build M5CORE-FIRE using Codespaces and run with Wokwi
+#### Build M5STACK-FIRE using Codespaces and run with Wokwi
 
 - Navigate to [GitHub repository](https://github.com/georgik/esp32-spooky-maze-game)
 - Click Open, select Codespaces tab, click Create Codespace
 
 ```
-cd m5core-fire
+cd m5stack-fire
 ./run-wokwi.sh
 ```
 
-#### Build M5CORE-FIRE and run Wokwi in local VS Code
+#### Build M5STACK-FIRE and run Wokwi in local VS Code
 
 Preview: install VS Code Wokwi plugin (private beta available on request)
 
 ```
-cd m5core-fire
+cd m5stack-fire
 cargo build --release --no-default-features --features "wokwi"
 ```
 

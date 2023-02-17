@@ -1,19 +1,19 @@
 [package]
-name = "{{crate_name}}-m5"
+name = "{{crate_name}}-m5stack-fire"
 version = "0.1.0"
 authors = ["{{ authors }}"]
 edition = "2021"
 license = "MIT"
 
 [target.xtensa-esp32-none-elf.dependencies]
-xtensa-atomic-emulation-trap = "0.3.0"
+xtensa-atomic-emulation-trap = "0.4.0"
 esp32-hal = "0.8.0"
-esp-backtrace = { version = "0.4.0", features = [
+esp-backtrace = { version = "0.5.0", features = [
     "esp32",
     "panic-handler",
     "print-uart",
 ] }
-xtensa-lx-rt = { version = "0.14.0", features = ["esp32"], optional = true }
+xtensa-lx-rt = { version = "0.15.0", features = ["esp32"], optional = true }
 
 [dependencies]
 embedded-graphics = "0.7"
