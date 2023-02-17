@@ -4,6 +4,16 @@ Template project for creating interactive apps with Rust Bare Metal (no_std) on 
 The template contains also WASM and Desktop version which could help with faster implementation of concepts.
 Each target HW is in separate directory. Shared code is stored in `engine`.
 
+## Version of espflash
+
+Use `espflash 2.x` which supports also targets like ESP32-C6.
+
+Installation:
+
+```
+cargo install espflash --git https://github.com/esp-rs/espflash.git
+```
+
 ## Generate new project
 
 ```
@@ -34,7 +44,16 @@ Control: IMU
 
 ```
 cd esp32-s3-box
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
+```
+
+### Build for ESP32-C6-DevKitM-1 with ILI9341
+
+Control: Not implemented
+
+```
+cd esp32-c6-devkit
+cargo espflash flash --release --monitor
 ```
 
 ### Build for ESP32-C3-DeviKit-RUST with ILI9341
@@ -44,7 +63,7 @@ Control: IMU
 
 ```
 cd esp32-c3-devkit-rust
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 #### Features
@@ -86,7 +105,7 @@ Control: buttons
 
 ```
 cd esp32-s3-usb-otg
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 ### Build for ESP32-S2-USB-OTG with ST7789
@@ -98,7 +117,7 @@ Control: buttons
 
 ```
 cd esp32-s2-usb-otg
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 ### Build for M5STACK-FIRE with ESP32 and ILI9341
@@ -112,7 +131,7 @@ Control: MPU-9250, buttons
 
 ```
 cd m5stack-fire
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 #### Build M5STACK-FIRE using GitPod.io and run with Wokwi
@@ -155,7 +174,7 @@ Control: Not implemented
 
 ```
 cd m5stack-core2
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 ### Build for ESP32-S2-Kaluga v1.3
@@ -170,7 +189,7 @@ Control: buttons (partialy implemented based on of https://github.com/espressif/
 
 ```
 cd esp32-s2-kaluga
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 Note for older version 1.2 - GPIO6 is used to control backlight.
@@ -185,7 +204,7 @@ Control: limited, only one button available
 
 ```
 cd esp-wrover-kit
-cargo espflash --release --monitor
+cargo espflash flash --release --monitor
 ```
 
 ### Build for ESP32-S2 with ILI9341
@@ -193,7 +212,7 @@ cargo espflash --release --monitor
 See tag v0.1.0.
 
 ```
-cargo espflash --release --target xtensa-esp32s2-none-elf --features esp32s2_ili9341 --monitor
+cargo espflash flash --release --target xtensa-esp32s2-none-elf --features esp32s2_ili9341 --monitor
 ```
 
 ## Development
